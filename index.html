@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1efe6">
+  <meta name="description" content="JAW Photography — an independent photographic archive of quiet streets, everyday details, night light and the natural world.">
+  <title>JAW Photography — A Study in Everyday Light</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:#f1efe6; --paper-deep:#e6e3d7; --ink:#24271f; --muted:#77786e;
+      --line:rgba(36,39,31,.18); --accent:#a45335; --accent-dark:#713c28; --dark:#20241d;
+      --serif:'Playfair Display', Georgia, serif; --sans:'DM Sans', Arial, sans-serif; --mono:'DM Mono', monospace;
+      --page: min(1300px, calc(100% - 9vw));
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    body.locked{overflow:hidden} a{color:inherit;text-decoration:none} button{font:inherit}
+    ::selection{background:#bd7957;color:#fff}
+    .container{width:var(--page);max-width:1300px;margin:0 auto}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font:11px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+    .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+    .site-header{position:sticky;top:0;z-index:40;background:rgba(241,239,230,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav-wrap{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:inline-flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.13em;font-size:12px;white-space:nowrap}
+    .brand-mark{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--ink);font:italic 17px var(--serif);letter-spacing:-.04em}
+    .brand small{display:block;font:10px var(--mono);color:var(--muted);letter-spacing:.12em;margin-top:1px}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{font-size:12px;color:#595b53;transition:color .2s ease}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-links .nav-cta{border:1px solid var(--ink);padding:10px 15px;color:var(--ink);transition:background .2s,color .2s}
+    .nav-links .nav-cta:hover{background:var(--ink);color:var(--paper)}
+    .menu-toggle{display:none;border:1px solid var(--line);background:transparent;width:42px;height:42px;cursor:pointer;color:var(--ink)}
+
+    .hero{display:grid;grid-template-columns:.88fr 1.12fr;min-height:650px;padding:45px 0 49px;gap:5.2vw;align-items:stretch}
+    .hero-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:20px 0 24px}
+    .hero h1{font:500 clamp(3.5rem,6.7vw,6.9rem)/.99 var(--serif);letter-spacing:-.055em;margin:28px 0 24px;max-width:610px}
+    .hero h1 em{color:var(--accent);font-weight:500}
+    .hero-intro{max-width:390px;color:#696a61;font-size:15px;line-height:1.9;margin:0 0 29px}
+    .button-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:48px;padding:0 19px;border:1px solid var(--ink);font-size:12px;font-weight:600;letter-spacing:.02em;transition:transform .2s,background .2s,color .2s}
+    .button svg{width:14px;height:14px;transition:transform .2s}
+    .button:hover{transform:translateY(-2px)} .button-primary{background:var(--ink);color:var(--paper)} .button-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+    .button-text{border-color:transparent;padding-left:8px;padding-right:8px;color:#62635a}
+    .button-text:hover svg{transform:translateX(3px)}
+    .hero-meta{display:flex;gap:28px;margin-top:54px;padding-top:18px;border-top:1px solid var(--line);width:100%;max-width:390px}
+    .hero-meta div{display:flex;flex-direction:column;gap:4px}
+    .hero-meta span:first-child{font:10px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .hero-meta span:last-child{font:12px var(--sans);color:var(--ink)}
+    .hero-visual{position:relative;min-height:570px;overflow:hidden;background:#2d2b22}
+    .hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 53%;filter:saturate(.85);transform:scale(1.001)}
+    .hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,8,.04) 25%,rgba(10,12,8,.58) 100%);pointer-events:none}
+    .hero-photo-label{position:absolute;z-index:1;left:25px;right:25px;bottom:25px;color:#f5f0e5;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+    .hero-photo-label strong{display:block;font:italic 24px var(--serif);font-weight:500;letter-spacing:-.02em}
+    .hero-photo-label span{font:10px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:rgba(245,240,229,.72)}
+    .hero-index{position:absolute;z-index:2;top:20px;right:20px;color:rgba(245,240,229,.85);font:10px var(--mono);writing-mode:vertical-rl;letter-spacing:.15em}
+
+    .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0}
+    .ticker-inner{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
+    .ticker span{font:10px var(--mono);text-transform:uppercase;letter-spacing:.11em;color:var(--muted)}
+    .ticker .sep{color:var(--accent);margin:0 8px}
+
+    section{scroll-margin-top:92px}
+    .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:35px}
+    .section-title{font:500 clamp(2.4rem,4.5vw,4.4rem)/1.06 var(--serif);letter-spacing:-.045em;margin:12px 0 0}
+    .section-note{max-width:275px;font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 4px}
+    .work-section{padding:108px 0 105px}
+    .filter-bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 25px}
+    .filter-label{font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+    .filter-btn{border:1px solid var(--line);background:transparent;color:#65665c;padding:8px 14px;font-size:11px;cursor:pointer;transition:background .2s,color .2s,border .2s}
+    .filter-btn:hover,.filter-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:34px 18px;align-items:start}
+    .photo-card{display:block;min-width:0;grid-column:span 4;cursor:zoom-in;animation:fadeUp .45s ease both}
+    .photo-card.w4{grid-column:span 4}.photo-card.w5{grid-column:span 5}.photo-card.w6{grid-column:span 6}.photo-card.w7{grid-column:span 7}.photo-card.w8{grid-column:span 8}
+    .photo-card[hidden]{display:none}
+    .photo-frame{position:relative;overflow:hidden;background:var(--paper-deep);isolation:isolate}
+    .photo-frame.landscape{aspect-ratio:1.42/1}.photo-frame.portrait{aspect-ratio:4/5}.photo-frame.portrait-tall{aspect-ratio:3/4}.photo-frame.square{aspect-ratio:1/1}
+    .photo-frame img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s;filter:saturate(.91)}
+    .photo-card:hover .photo-frame img{transform:scale(1.035);filter:saturate(1)}
+    .photo-frame .view-icon{position:absolute;z-index:2;right:13px;top:13px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:white;background:rgba(24,27,21,.65);opacity:0;transform:translateY(4px);transition:.2s}
+    .photo-card:hover .view-icon,.photo-card:focus-visible .view-icon{opacity:1;transform:translateY(0)}
+    .view-icon svg{width:15px;height:15px}
+    .photo-caption{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:13px 1px 0}
+    .photo-caption h3{font:500 19px var(--serif);margin:0;line-height:1.3}
+    .photo-caption p{font-size:11px;color:var(--muted);margin:5px 0 0;line-height:1.5}
+    .photo-caption .number{font:10px var(--mono);color:var(--muted);padding-top:5px;white-space:nowrap}
+    .photo-card:nth-child(1){margin-top:12px}.photo-card:nth-child(3){margin-top:58px}.photo-card:nth-child(4){margin-top:-4px}.photo-card:nth-child(5){margin-top:26px}.photo-card:nth-child(6){margin-top:55px}.photo-card:nth-child(7){margin-top:6px}.photo-card:nth-child(8){margin-top:42px}.photo-card:nth-child(9){margin-top:-3px}.photo-card:nth-child(10){margin-top:40px}
+
+    .statement{background:var(--dark);color:var(--paper);padding:83px 0 86px;position:relative;overflow:hidden}
+    .statement:before{content:"“";position:absolute;right:9%;top:-100px;color:rgba(241,239,230,.06);font:400 360px/1 var(--serif);pointer-events:none}
+    .statement-inner{display:grid;grid-template-columns:.5fr 1.5fr;gap:7vw;align-items:start;position:relative;z-index:1}
+    .statement .eyebrow{color:#c9c5b8}.statement .eyebrow .dot{background:#cf8b68}
+    .statement blockquote{font:500 clamp(2.1rem,4.4vw,4.25rem)/1.2 var(--serif);letter-spacing:-.04em;margin:0;max-width:900px}
+    .statement blockquote em{color:#cc8a68;font-weight:500}
+    .statement-caption{grid-column:2;color:#b9b9ab;font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:22px}
+
+    .about-section{padding:108px 0 110px}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:8vw;align-items:center}
+    .about-image{position:relative;max-width:500px}
+    .about-image img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center;background:var(--paper-deep);filter:saturate(.84)}
+    .image-note{position:absolute;right:-20px;bottom:22px;background:var(--accent);color:#fff;padding:13px 16px;font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;writing-mode:vertical-rl}
+    .about-copy .section-title{margin-bottom:22px}
+    .about-copy p{font-size:14px;line-height:2;color:#686960;max-width:550px;margin:0 0 16px}
+    .about-copy p strong{color:var(--ink);font-weight:600}
+    .about-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 28px;padding-top:25px;margin-top:25px;border-top:1px solid var(--line);max-width:520px}
+    .detail-label{display:block;color:var(--muted);font:10px var(--mono);letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px}
+    .detail-value{font-size:12px;font-weight:600}
+
+    .services-section{padding:78px 0 90px;background:var(--paper-deep)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+    .service{background:var(--paper-deep);padding:27px 27px 30px;min-height:190px;transition:background .2s}
+    .service:hover{background:#eeeadf}
+    .service-number{font:10px var(--mono);color:var(--accent);letter-spacing:.1em}
+    .service h3{font:500 24px var(--serif);margin:25px 0 9px}
+    .service p{font-size:12px;line-height:1.8;color:var(--muted);margin:0;max-width:270px}
+
+    .contact-section{background:var(--accent);color:#fff;padding:78px 0 75px;position:relative;overflow:hidden}
+    .contact-section:after{content:'JAW';position:absolute;right:-20px;bottom:-125px;font:600 clamp(11rem,24vw,23rem)/1 var(--serif);letter-spacing:-.1em;color:rgba(255,255,255,.07);pointer-events:none}
+    .contact-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;position:relative;z-index:1}
+    .contact-section .eyebrow{color:rgba(255,255,255,.72)}.contact-section .eyebrow .dot{background:#fff}
+    .contact-section h2{font:500 clamp(2.8rem,6vw,6rem)/1.02 var(--serif);letter-spacing:-.05em;margin:18px 0 15px;max-width:750px}
+    .contact-section p{font-size:13px;color:rgba(255,255,255,.78);max-width:420px;margin:0;line-height:1.8}
+    .contact-section .button{background:var(--paper);color:var(--ink);border-color:var(--paper);white-space:nowrap;margin-bottom:3px}
+    .contact-section .button:hover{background:#fff}
+    .contact-section .button svg{width:14px;height:14px}
+
+    .site-footer{padding:24px 0 27px;background:var(--dark);color:#c1c1b5}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
+    .footer-brand{font-size:11px;letter-spacing:.14em;color:var(--paper);font-weight:600}
+    .footer-copy,.footer-note{font:10px var(--mono);letter-spacing:.03em;color:#8d9083}
+    .footer-links{display:flex;gap:18px;font-size:11px}.footer-links a:hover{color:white}
+    .back-top{position:fixed;right:21px;bottom:21px;z-index:30;width:42px;height:42px;display:grid;place-items:center;background:var(--paper);border:1px solid var(--line);opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
+    .back-top.show{opacity:1;pointer-events:auto;transform:translateY(0)} .back-top svg{width:17px;height:17px}
+
+    .lightbox{position:fixed;inset:0;z-index:100;background:rgba(16,18,14,.96);display:none;align-items:center;justify-content:center;padding:28px}
+    .lightbox.open{display:flex}.lightbox figure{margin:0;max-width:min(1100px,80vw);max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .lightbox-image-wrap{height:min(75vh,900px);width:min(1000px,78vw);display:flex;align-items:center;justify-content:center}
+    .lightbox img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 20px 70px rgba(0,0,0,.2)}
+    .lightbox figcaption{color:#eee9dd;text-align:center;font-size:13px}.lightbox figcaption small{display:block;color:#aaa99c;font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+    .lb-control{position:absolute;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);color:#fff;width:46px;height:46px;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+    .lb-control:hover{background:rgba(255,255,255,.15)}.lb-control svg{width:18px;height:18px}.lb-close{right:24px;top:22px}.lb-prev{left:25px;top:50%;transform:translateY(-50%)}.lb-next{right:25px;top:50%;transform:translateY(-50%)}
+    .lb-count{position:absolute;left:28px;top:31px;color:#aaa99c;font:10px var(--mono);letter-spacing:.12em}
+    .noscript{padding:20px;background:#fff4dc;color:#554021;text-align:center}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @media (max-width:1000px){:root{--page:min(1300px,calc(100% - 7vw))}.hero{gap:4vw;min-height:560px}.hero-visual{min-height:510px}.hero h1{font-size:clamp(3.3rem,6vw,5.4rem)}.gallery-grid{gap:30px 14px}.photo-card.w8{grid-column:span 7}.photo-card.w7{grid-column:span 7}.photo-card.w4{grid-column:span 5}.photo-card.w5{grid-column:span 5}.about-grid{gap:6vw}.statement-inner{grid-template-columns:.4fr 1.6fr}}
+    @media (max-width:720px){:root{--page:calc(100% - 38px)}.nav-wrap{height:66px}.menu-toggle{display:grid;place-items:center}.nav-links{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 19px 23px;background:var(--paper);border-bottom:1px solid var(--line);align-items:stretch;gap:0;flex-direction:column}.nav-links.open{display:flex}.nav-links a{padding:12px 0;border-bottom:1px solid var(--line)}.nav-links .nav-cta{margin-top:12px;text-align:center;border:1px solid var(--ink);padding:12px}.hero{grid-template-columns:1fr;padding:34px 0 37px;gap:27px;min-height:auto}.hero-copy{padding:12px 0 0}.hero h1{font-size:clamp(3.6rem,14vw,6.4rem);margin:22px 0 19px}.hero-intro{font-size:14px;max-width:430px}.hero-meta{margin-top:30px}.hero-visual{min-height:410px;height:72vw;max-height:540px}.hero-photo-label{left:17px;right:17px;bottom:18px}.hero-photo-label strong{font-size:21px}.ticker-inner{justify-content:flex-start;gap:7px 15px}.ticker span{font-size:9px}.ticker .hide-small{display:none}.section-head{display:block;margin-bottom:26px}.section-note{margin-top:14px;max-width:450px}.work-section{padding:76px 0 75px}.section-title{font-size:clamp(2.7rem,10vw,4rem)}.filter-bar{gap:6px;margin-bottom:20px}.filter-label{width:100%;margin-bottom:5px}.filter-btn{padding:7px 11px;font-size:10px}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 11px}.photo-card,.photo-card.w4,.photo-card.w5,.photo-card.w6,.photo-card.w7,.photo-card.w8{grid-column:span 1;margin-top:0!important}.photo-card:nth-child(3n+1){margin-top:10px!important}.photo-card:nth-child(3n){margin-top:22px!important}.photo-frame.landscape{aspect-ratio:4/5}.photo-frame.portrait{aspect-ratio:4/5}.photo-frame.portrait-tall{aspect-ratio:3/5}.photo-caption{gap:8px;padding-top:10px}.photo-caption h3{font-size:16px}.photo-caption p{font-size:10px}.photo-caption .number{font-size:9px}.photo-frame .view-icon{opacity:1;transform:none;width:29px;height:29px;right:8px;top:8px}.statement{padding:66px 0}.statement-inner{grid-template-columns:1fr;gap:22px}.statement blockquote{font-size:clamp(2.3rem,8vw,3.6rem)}.statement-caption{grid-column:1;margin-top:4px}.about-section{padding:75px 0 80px}.about-grid{grid-template-columns:1fr;gap:42px}.about-image{width:calc(100% - 17px);max-width:430px}.image-note{right:-16px}.about-copy p{font-size:13px}.services-section{padding:65px 0}.services-grid{grid-template-columns:1fr}.service{min-height:auto;padding:22px}.service h3{margin-top:15px}.contact-section{padding:66px 0}.contact-grid{align-items:flex-start;flex-direction:column;gap:28px}.contact-section h2{font-size:clamp(3rem,12vw,5rem)}.contact-section .button{margin:0}.footer-inner{gap:13px}.footer-note{width:100%;order:3}.lightbox{padding:18px}.lightbox figure{max-width:100%;max-height:83vh}.lightbox-image-wrap{width:100%;height:70vh}.lb-control{width:38px;height:38px}.lb-close{top:14px;right:14px}.lb-prev{left:9px}.lb-next{right:9px}.lb-count{top:26px;left:17px}}
+    @media (max-width:390px){.gallery-grid{gap:22px 9px}.photo-caption h3{font-size:15px}.photo-caption .number{display:none}.hero h1{font-size:3.4rem}.hero-visual{min-height:360px}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  .contact-email{margin-top:12px!important}.contact-email a{color:inherit;text-decoration:underline;text-underline-offset:3px}.about-photo-caption{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:10px}</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="JAW Photography home"><span class="brand-mark">J.</span><span>JAW <small>PHOTOGRAPHIC NOTES</small></span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="19" height="19"><path d="M3 7h18M3 17h18"/></svg></button>
+      <nav id="navigation" class="nav-links" aria-label="Main navigation">
+        <a href="#work">Selected work</a><a href="#about">About</a><a href="#services">What I do</a><a class="nav-cta" href="mailto:jawwadnoaman7@gmail.com?subject=Photography%20enquiry">Email me <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="container hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> A personal photographic archive</div>
+        <h1 id="hero-title">Life, at the<br>edges of <em>light.</em></h1>
+        <p class="hero-intro">Quiet corners, familiar streets, palms after dark, and the everyday moments that ask for a second look. Photographs made slowly, with an eye for atmosphere.</p>
+        <div class="button-row"><a class="button button-primary" href="#work">Explore the work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a><a class="button button-text" href="#about">A little about me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v15M5 12l7 7 7-7"/></svg></a></div>
+        <div class="hero-meta"><div><span>Approach</span><span>Observational</span></div><div><span>Subjects</span><span>Light / place / detail</span></div></div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/hero-night-walk.webp" alt="Warm streetlights glowing through dark tree branches at night" fetchpriority="high">
+        <span class="hero-index">FRAME 001 · AFTER DARK</span>
+        <div class="hero-photo-label"><div><span>Selected opening frame</span><strong>Where the light stays</strong></div><span>01 / 11</span></div>
+      </div>
+    </section>
+
+    <div class="ticker"><div class="container ticker-inner"><span>Digital photography <b class="sep">/</b> Everyday scenes</span><span>Natural light <b class="sep">/</b> Quiet nights</span><span class="hide-small">No grand moments required</span></div></div>
+
+    <section id="work" class="work-section container" aria-labelledby="work-title">
+      <div class="section-head"><div><div class="eyebrow"><span class="dot"></span> A selection from the archive</div><h2 id="work-title" class="section-title">A few things<br>I noticed.</h2></div><p class="section-note">A collection of small observations: an unexpected visitor, a patch of sun, a roofline dissolving into the evening.</p></div>
+      <div class="filter-bar" role="group" aria-label="Filter photographs"><span class="filter-label">Browse by mood</span><button class="filter-btn" type="button" data-filter="all" aria-pressed="true">Everything</button><button class="filter-btn" type="button" data-filter="night" aria-pressed="false">After dark</button><button class="filter-btn" type="button" data-filter="nature" aria-pressed="false">Nature</button><button class="filter-btn" type="button" data-filter="city" aria-pressed="false">City & forms</button><button class="filter-btn" type="button" data-filter="light" aria-pressed="false">Light studies</button></div>
+      <div class="gallery-grid" id="gallery">
+        <a class="photo-card w5" href="assets/roofline-visitor.webp" data-index="0" data-tags="city" aria-label="Open photograph: Roofline visitor">
+          <div class="photo-frame portrait"><img src="assets/roofline-visitor.webp" alt="A pigeon pausing on a tiled rooftop" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Roofline visitor</h3><p>Small encounters · City</p></div><span class="number">01 / 18</span></div>
+        </a>
+        <a class="photo-card w7" href="assets/cloud-study.webp" data-index="1" data-tags="light" aria-label="Open photograph: Cloud study">
+          <div class="photo-frame landscape"><img src="assets/cloud-study.webp" alt="Clouds parting around soft late daylight above rooftops" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Cloud study</h3><p>Weather notes · Light</p></div><span class="number">02 / 10</span></div>
+        </a>
+        <a class="photo-card w4" href="assets/between-the-palms.webp" data-index="2" data-tags="night nature" aria-label="Open photograph: Between the palms">
+          <div class="photo-frame portrait-tall"><img src="assets/between-the-palms.webp" alt="Palm fronds framing a narrow red light in the dark" loading="lazy" style="object-position:center 42%"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Between the palms</h3><p>Night study · Nature</p></div><span class="number">03 / 10</span></div>
+        </a>
+        <a class="photo-card w8" href="assets/courtyard-from-above.webp" data-index="3" data-tags="nature city" aria-label="Open photograph: Courtyard from above">
+          <div class="photo-frame landscape"><img src="assets/courtyard-from-above.webp" alt="Sunlit residential courtyard, palms and pale walls" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Courtyard from above</h3><p>Everyday places · Nature</p></div><span class="number">04 / 10</span></div>
+        </a>
+        <a class="photo-card w4" href="assets/afternoon-geometry.webp" data-index="4" data-tags="light detail" aria-label="Open photograph: Afternoon geometry">
+          <div class="photo-frame portrait"><img src="assets/afternoon-geometry.webp" alt="A diagonal band of golden sunlight on a tiled floor" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Afternoon geometry</h3><p>Light studies · Detail</p></div><span class="number">05 / 10</span></div>
+        </a>
+        <a class="photo-card w4" href="assets/soft-city-edges.webp" data-index="5" data-tags="city nature" aria-label="Open photograph: Soft city edges">
+          <div class="photo-frame landscape"><img src="assets/soft-city-edges.webp" alt="Soft city rooftops, trees and pale sky seen over a wall" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Soft city edges</h3><p>Urban quiet · City</p></div><span class="number">06 / 10</span></div>
+        </a>
+        <a class="photo-card w4" href="assets/last-lights.webp" data-index="6" data-tags="night city" aria-label="Open photograph: Last lights">
+          <div class="photo-frame landscape"><img src="assets/last-lights.webp" alt="A low city skyline with distant lights under the night sky" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Last lights</h3><p>After dark · City</p></div><span class="number">07 / 10</span></div>
+        </a>
+        <a class="photo-card w8" href="assets/palms-after-dark.webp" data-index="7" data-tags="night nature" aria-label="Open photograph: Palms after dark">
+          <div class="photo-frame landscape"><img src="assets/palms-after-dark.webp" alt="Palm trees lit by a nearby light against the night" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Palms after dark</h3><p>Night study · Nature</p></div><span class="number">08 / 10</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/lines-against-concrete.webp" data-index="8" data-tags="city detail" aria-label="Open photograph: Lines against concrete">
+          <div class="photo-frame landscape"><img src="assets/lines-against-concrete.webp" alt="Minimal architectural lines against pale concrete" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Lines against concrete</h3><p>Architecture · Detail</p></div><span class="number">09 / 10</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/the-utility-room.webp" data-index="9" data-tags="detail light" aria-label="Open photograph: The utility room">
+          <div class="photo-frame landscape"><img src="assets/the-utility-room.webp" alt="A quiet utility room with amber light and deep shadows" loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>The utility room</h3><p>Interior notes · Light</p></div><span class="number">10 / 10</span></div>
+        <a class="photo-card w6" href="assets/red-signal-palms.webp" data-index="10" data-tags="night nature" aria-label="Open photograph: Red signal">
+          <div class="photo-frame landscape"><img src="assets/red-signal-palms.webp" alt="A vivid red light suspended between palm trunks after dark." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Red signal</h3><p>A vivid red light suspended between palm trunks after dark.</p></div><span class="number">11 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/pigeon-in-grain.webp" data-index="11" data-tags="city light" aria-label="Open photograph: A rooftop pause">
+          <div class="photo-frame landscape"><img src="assets/pigeon-in-grain.webp" alt="A pigeon silhouetted against the warm, grainy evening sky." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>A rooftop pause</h3><p>A pigeon silhouetted against the warm, grainy evening sky.</p></div><span class="number">12 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/amber-clouds.webp" data-index="12" data-tags="light city" aria-label="Open photograph: Amber weather">
+          <div class="photo-frame landscape"><img src="assets/amber-clouds.webp" alt="Late light turns the cloud cover and rooftops into a warm, grainy study." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Amber weather</h3><p>Late light turns the cloud cover and rooftops into a warm, grainy study.</p></div><span class="number">13 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/the-quiet-lane.webp" data-index="13" data-tags="night city" aria-label="Open photograph: The quiet lane">
+          <div class="photo-frame landscape"><img src="assets/the-quiet-lane.webp" alt="A dim residential lane receding beneath a canopy of trees." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>The quiet lane</h3><p>A dim residential lane receding beneath a canopy of trees.</p></div><span class="number">14 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/green-night-city.webp" data-index="14" data-tags="night city" aria-label="Open photograph: Green night">
+          <div class="photo-frame landscape"><img src="assets/green-night-city.webp" alt="A distant city skyline seen through a cool green digital-night palette." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Green night</h3><p>A distant city skyline seen through a cool green digital-night palette.</p></div><span class="number">15 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/after-the-rain.webp" data-index="15" data-tags="night city" aria-label="Open photograph: After the rain">
+          <div class="photo-frame landscape"><img src="assets/after-the-rain.webp" alt="Dark trees and residential walls under a muted violet evening sky." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>After the rain</h3><p>Dark trees and residential walls under a muted violet evening sky.</p></div><span class="number">16 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/night-window.webp" data-index="16" data-tags="night city" aria-label="Open photograph: A lit window">
+          <div class="photo-frame landscape"><img src="assets/night-window.webp" alt="A small rectangle of light breaks through the dark residential scene." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>A lit window</h3><p>A small rectangle of light breaks through the dark residential scene.</p></div><span class="number">17 / 18</span></div>
+        </a>
+        <a class="photo-card w6" href="assets/palm-canopy-original.webp" data-index="17" data-tags="night nature" aria-label="Open photograph: Palm canopy">
+          <div class="photo-frame portrait-tall"><img src="assets/palm-canopy-original.webp" alt="Palm fronds create a natural frame around a distant red light." loading="lazy"><span class="view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></svg></span></div>
+          <div class="photo-caption"><div><h3>Palm canopy</h3><p>Palm fronds create a natural frame around a distant red light.</p></div><span class="number">18 / 18</span></div>
+        </a>
+        </a>
+      </div>
+      <p id="filter-status" class="eyebrow" aria-live="polite" style="margin:27px 0 0">18 frames in this selection</p>
+    </section>
+
+    <section class="statement" aria-label="Photography philosophy"><div class="container statement-inner"><div class="eyebrow"><span class="dot"></span> A note on looking</div><blockquote>“Not every photograph needs a grand subject. Sometimes, all it needs is <em>the right light</em> and a moment of attention.”</blockquote><div class="statement-caption">An ongoing study of ordinary things</div></div></section>
+
+    <section id="about" class="about-section container" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div class="about-image"><img src="assets/about-portrait.webp" alt="Portrait in the mountains, wearing a dark coat and wool hat" loading="lazy"><span class="image-note">Looking closer / always</span></div><p class="about-photo-caption">Portrait of the photographer</p>
+        <div class="about-copy"><div class="eyebrow"><span class="dot"></span> Behind the frames</div><h2 id="about-title" class="section-title">Hello, I'm JAW.</h2><p>This is a personal archive of the things I keep noticing: light slipping into a room, rooftops after the day has gone quiet, a bird holding still, or a familiar place looking different at night.</p><p>I work with <strong>digital photographs and a light-touch editing approach</strong>. I'm drawn to early-digital character, muted colours, natural softness, and the little imperfections that make an image feel remembered rather than polished flat.</p><p>The aim isn't to make ordinary places look extraordinary. It's to pay enough attention to see what is already there.</p><div class="about-details"><div><span class="detail-label">Visual interests</span><span class="detail-value">Street · Light · Everyday life</span></div><div><span class="detail-label">Image-making</span><span class="detail-value">Digital · Available light</span></div><div><span class="detail-label">Editing style</span><span class="detail-value">Atmospheric, restrained</span></div><div><span class="detail-label">Currently open to</span><span class="detail-value">Small creative projects</span></div></div></div>
+      </div>
+    </section>
+
+    <section id="services" class="services-section" aria-labelledby="services-title"><div class="container"><div class="eyebrow"><span class="dot"></span> Ways we could work together</div><div class="section-head" style="margin-top:10px;margin-bottom:0"><h2 id="services-title" class="section-title">Small ideas, thoughtfully made.</h2><p class="section-note">A few services that sit naturally alongside the personal work.</p></div><div class="services-grid"><article class="service"><span class="service-number">01 / EDITING</span><h3>Photo finishing</h3><p>Colour correction and mood-led edits for personal photos, small portfolios, and social posts.</p></article><article class="service"><span class="service-number">02 / MUSIC</span><h3>Artwork imagery</h3><p>Atmospheric photographic artwork for singles, playlists, and independent music projects.</p></article><article class="service"><span class="service-number">03 / VISUALS</span><h3>Small visual stories</h3><p>A considered set of images for a small brand, a personal project, or a place worth documenting.</p></article></div></div></section>
+
+    <section id="contact" class="contact-section" aria-labelledby="contact-title"><div class="container contact-grid"><div><div class="eyebrow"><span class="dot"></span> Good things start with a note</div><h2 id="contact-title">Have a picture<br>in mind?</h2><p>For photo edits, album artwork, small commissions, or a simple conversation about making something visual, drop me a note.</p><p class="contact-email">Or email directly: <a href="mailto:jawwadnoaman7@gmail.com">jawwadnoaman7@gmail.com</a></p><p class="contact-social"><a href="https://www.instagram.com/jawwadnoaman2/" target="_blank" rel="noopener noreferrer">Follow on Instagram @jawwadnoaman2 ↗</a></p></div><a class="button" href="mailto:jawwadnoaman7@gmail.com?subject=Photography%20enquiry" id="email-link" aria-label="Email jawwadnoaman7@gmail.com about a photography enquiry">Start a conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a href="#top" class="footer-brand">JAW / PHOTOGRAPHY</a><span class="footer-copy">A personal archive, still in progress.</span><div class="footer-links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><a href="https://www.instagram.com/jawwadnoaman2/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div><span class="footer-note">All photographs shown here are from the photographer's own archive.</span></div></footer>
+  <a class="back-top" id="back-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V4M5 11l7-7 7 7"/></svg></a>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photograph viewer" aria-hidden="true">
+    <div class="lb-count" id="lb-count">01 / 18</div>
+    <button class="lb-control lb-close" type="button" id="lb-close" aria-label="Close photograph viewer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    <button class="lb-control lb-prev" type="button" id="lb-prev" aria-label="Previous photograph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 18-6-6 6-6"/></svg></button>
+    <figure><div class="lightbox-image-wrap"><img id="lb-image" src="" alt=""></div><figcaption id="lb-caption"></figcaption></figure>
+    <button class="lb-control lb-next" type="button" id="lb-next" aria-label="Next photograph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+  <noscript><div class="noscript">JavaScript is off. You can still scroll the portfolio; filters and the full-screen image viewer need JavaScript enabled.</div></noscript>
+  <script>
+    (() => {
+      const cards = Array.from(document.querySelectorAll('.photo-card'));
+      const filters = Array.from(document.querySelectorAll('.filter-btn'));
+      const status = document.getElementById('filter-status');
+      const lightbox = document.getElementById('lightbox');
+      const lbImage = document.getElementById('lb-image');
+      const lbCaption = document.getElementById('lb-caption');
+      const lbCount = document.getElementById('lb-count');
+      let current = 0;
+      let returnFocus = null;
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.getElementById('navigation');
+
+      menuToggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded','false'); menuToggle.setAttribute('aria-label','Open navigation');
+      }));
+
+      filters.forEach(btn => btn.addEventListener('click', () => {
+        const category = btn.dataset.filter;
+        filters.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+        let visible = 0;
+        cards.forEach(card => {
+          const tags = (card.dataset.tags || '').split(/\s+/);
+          const show = category === 'all' || tags.includes(category);
+          card.hidden = !show;
+          if (show) visible++;
+        });
+        status.textContent = `${visible} ${visible === 1 ? 'frame' : 'frames'} in this selection`;
+      }));
+
+      function visibleCards() { return cards.filter(c => !c.hidden); }
+      function openLightbox(card) {
+        const list = visibleCards(); current = Math.max(0, list.indexOf(card)); returnFocus = card; renderImage();
+        lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden','false'); document.body.classList.add('locked');
+        document.getElementById('lb-close').focus();
+      }
+      function renderImage() {
+        const list = visibleCards(); if (!list.length) return;
+        current = (current + list.length) % list.length;
+        const card = list[current]; const img = card.querySelector('img');
+        lbImage.src = img.src; lbImage.alt = img.alt;
+        const title = card.querySelector('h3')?.textContent || 'Photograph';
+        const desc = card.querySelector('.photo-caption p')?.textContent || '';
+        lbCaption.innerHTML = '';
+        const main = document.createElement('span'); main.textContent = title;
+        const sub = document.createElement('small'); sub.textContent = desc;
+        lbCaption.append(main, sub); lbCount.textContent = `${String(current+1).padStart(2,'0')} / ${String(list.length).padStart(2,'0')}`;
+      }
+      function closeLightbox() { lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true'); document.body.classList.remove('locked'); lbImage.src=''; if (returnFocus) returnFocus.focus(); }
+      function step(delta) { const list = visibleCards(); if (!list.length) return; current = (current + delta + list.length) % list.length; renderImage(); }
+      cards.forEach(card => card.addEventListener('click', e => { e.preventDefault(); openLightbox(card); }));
+      document.getElementById('lb-close').addEventListener('click', closeLightbox);
+      document.getElementById('lb-prev').addEventListener('click', () => step(-1));
+      document.getElementById('lb-next').addEventListener('click', () => step(1));
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+      });
+
+      const topButton = document.getElementById('back-top');
+      window.addEventListener('scroll', () => { topButton.classList.toggle('show', window.scrollY > 560); }, {passive:true});
+      const emailLink = document.getElementById('email-link');
+      emailLink.addEventListener('click', e => {
+        if (emailLink.getAttribute('href').includes('jawwadnoaman7@gmail.com')) {
+          e.preventDefault();
+          const msg = 'Before publishing, replace jawwadnoaman7@gmail.com in index.html with the email address you want to use for photography enquiries.';
+          window.alert(msg);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
